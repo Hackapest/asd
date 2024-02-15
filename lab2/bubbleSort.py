@@ -16,4 +16,4 @@ def bubble_sort(arr):
 
 arr = generate_random_array(100)
 bubble_sort(arr)
-print("Sorted array is:", arr)
+print(arr)
