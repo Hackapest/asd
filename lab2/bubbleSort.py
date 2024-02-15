@@ -1,7 +1,7 @@
 import random
+import time
 
-
-def generate_random_array(length, min_val=0, max_val=100000):
+def generate_random_array(length, min_val=0, max_val=100):
     return [random.randint(min_val, max_val-1) for _ in range(length)]
 
 def bubble_sort(arr):
@@ -14,6 +14,17 @@ def bubble_sort(arr):
 
 
 
-arr = generate_random_array(100)
+arr = generate_random_array(10)
+
+st = time.time()
+
+
 bubble_sort(arr)
 print(arr)
+
+et = time.time()
+
+elapsed_time = et - st
+print('Execution time:', elapsed_time, 'seconds')
+
+
