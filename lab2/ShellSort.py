@@ -6,13 +6,16 @@ def generate_random_array(length, min_val=0, max_val=100):
  
 def shell_sort(arr):
     n = len(arr)
-    gap = 1
-    counter = 1
+
+    gaps = [2**i-1 for i in range(1, n + 1) if 2**i-1 <= n]
+    gaps.reverse()
+
+    print(gaps)
 
     #m = 0 # copy amount
     #c = 0 # comparison amount
 
-    while gap <= n:
+    for gap in gaps:
         
         for i in range(gap, n):
             
@@ -30,9 +33,6 @@ def shell_sort(arr):
 
             arr[j] = temp
             #m += 1
-
-        counter += 1
-        gap = 2 ** counter - 1
 
     return arr
     #return m, c
