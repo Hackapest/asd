@@ -23,11 +23,8 @@ def bubble_sort(arr):
 
 
 
-arr = generate_random_array(100)
-
-print(arr)
-
-print(bubble_sort(arr))
+#arr = generate_random_array(100)
+#bubble_sort(arr)
 
 # avarage c and m calculation
 """

@@ -10,8 +10,6 @@ def shell_sort(arr):
     gaps = [2**i-1 for i in range(1, n + 1) if 2**i-1 <= n]
     gaps.reverse()
 
-    print(gaps)
-
     #m = 0 # copy amount
     #c = 0 # comparison amount
 
@@ -37,12 +35,13 @@ def shell_sort(arr):
     #return m, c
 
 
-arr = generate_random_array(100)
+arr = generate_random_array(1000)
 shell_sort(arr)
 
 
 # avarage c and m calculation
-"""all_m, all_c = 0, 0
+"""
+all_m, all_c = 0, 0
 for i in range(0, 2):
     arr = generate_random_array(10000)
     m, c = shell_sort(arr)
@@ -52,11 +51,16 @@ for i in range(0, 2):
 all_m /= 2
 all_c /= 2
 
-print(f"avarage m - {all_m}\navarabe c - {all_c}")"""
+print(f"avarage m - {all_m}\navarabe c - {all_c}")
+"""
 
 # time measurment
 """
+arr = generate_random_array(10000)
 st = time.time()
+
+shell_sort(arr)
+
 et = time.time()
 
 elapsed_time = et - st
