@@ -23,7 +23,6 @@ def shell_sort(arr):
             
             j = i
 
-            
             while j >= gap and arr[j - gap] > temp:
                 arr[j] = arr[j - gap]
                 #m += 1
