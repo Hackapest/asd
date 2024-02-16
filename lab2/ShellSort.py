@@ -38,9 +38,7 @@ def shell_sort(arr):
     #return m, c
 
 
-
 arr = generate_random_array(100)
-
 shell_sort(arr)
 
 
@@ -57,8 +55,7 @@ all_c /= 2
 
 print(f"avarage m - {all_m}\navarabe c - {all_c}")"""
 
-
-
+# time measurment
 """
 st = time.time()
 et = time.time()
@@ -66,4 +63,3 @@ et = time.time()
 elapsed_time = et - st
 print('Execution time:', elapsed_time, 'seconds')
 """
-
