@@ -9,6 +9,7 @@ def shell_sort(arr):
 
     gaps = [2**i-1 for i in range(1, n + 1) if 2**i-1 <= n]
     gaps.reverse()
+    print(gaps)
 
     #m = 0 # copy amount
     #c = 0 # comparison amount
@@ -26,16 +27,19 @@ def shell_sort(arr):
                 #m += 1
                 #c += 1
                 j -= gap
-            
+
 
             arr[j] = temp
             #m += 1
+            #c += 1
+
+
 
     return arr
     #return m, c
 
 
-arr = generate_random_array(1000)
+arr = generate_random_array(10)
 shell_sort(arr)
 
 
