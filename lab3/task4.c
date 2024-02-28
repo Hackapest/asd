@@ -60,6 +60,7 @@ void displayList(int start){
     while(ptr != NULL) {
         printf("\n[ (%s)", ptr->word);
 
+        // display the head, tail and current selected
         if (ptr == head) {
             printf("<-- Head");
         }
@@ -83,13 +84,17 @@ void insertFromEnd(char* word) {
     link->word = word;
 
     if (tailEmpty() && headEmpty()) {
+        // the case when the list is empty
         head = link;
         last = link;
     }
     else if (tailEmpty()){
-        ;
+        ; // skipt the case when head is empty
+          // not sure if this is needed
+          // but let it be here for now
     }
     else {
+        // the case when not empty
         last->next = link;
         link->prev = last;
     }
@@ -101,17 +106,22 @@ void insertFromEnd(char* word) {
 
 
 void insertFromStart(char* word) {
+    // create the node to insert
     struct node *link = (struct node*) malloc(sizeof(struct node));
     link->word = word;
 
     if (tailEmpty() && headEmpty()) {
+        // the case when the list is empty
         head = link;
         last = link;
     }
     else if (headEmpty()){
         ; // skipt the case when head is empty
+          // not sure if this is needed
+          // but let it be here for now
     }
     else {
+        // the case when not empty
         head->prev = link;
         link->next = head;
     }
@@ -121,6 +131,7 @@ void insertFromStart(char* word) {
 }
 
 void moveNode(int direction) {
+    // check if no node is selected
     if (current == NULL) {
         printf("\nCurrent node is NULL\n");
         return;
@@ -147,7 +158,7 @@ void removeCurrentNode() {
     if (current->next != NULL && current->prev != NULL) {
         current->prev->next = current->next;
         current->next->prev = current->prev;
-        free(current);
+        free(current); // not sure if needed
     }
     else if (current == head && current->next != NULL) {
         head = current->next;
@@ -158,6 +169,7 @@ void removeCurrentNode() {
         current = last;
     }
     else if (current == last && current == head) {
+        // if the list consists of only one node
         head = NULL;
         last = NULL;
         current = NULL;
@@ -165,6 +177,7 @@ void removeCurrentNode() {
 }
 
 char *inputCharString() {
+    // user input
     char *str, c;
     int i = 0;
     str = (char*) malloc(2 * sizeof(char));
