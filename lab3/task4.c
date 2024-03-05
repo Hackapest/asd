@@ -157,18 +157,24 @@ void removeCurrentNode() {
     if (current->next != NULL && current->prev != NULL) {
         current->prev->next = current->next;
         current->next->prev = current->prev;
-        free(current); // not sure if needed
+        free(current); // Free the memory of the current node
+        current = head; // Set current to NULL after removal
     }
     else if (current == head && current->next != NULL) {
         head = current->next;
+        head->prev = NULL;
+        free(current);
         current = head;
     }
     else if (current == last && current->prev != NULL) {
         last = current->prev;
+        last->next = NULL;
+        free(current);
         current = last;
     }
     else if (current == last && current == head) {
         // if the list consists of only one node
+        free(current);
         head = NULL;
         last = NULL;
         current = NULL;
@@ -231,19 +237,18 @@ char *inputCharString() {
     return str;
 }
 
-void labTask() {
+void labTask4() {
     
     if (headEmpty() && tailEmpty()) {
         printf("\nThe list is empty\n");
         return;
     }
-    
-    struct node *ptr;
+
+    struct node *ptr = head;
     bool temp;
     int len;
 
     while (ptr != NULL) {
-        ptr == head;
 
         // discard skip if sumular to the first word
         // first word is always skipped
@@ -291,13 +296,48 @@ void labTask() {
     }
 }
 
+
+void labTask9 (char letter){
+
+    if (headEmpty() && tailEmpty()) {
+        printf("\nThe list is empty\n");
+        return;
+    }
+    
+    struct node *ptr = head;
+    int len;
+
+    while (ptr != NULL) {
+
+        if (ptr->word[0] == letter) {
+            ptr->word[0] = ptr->word[0] - 32;
+        }
+        
+        len = strlen(ptr->word);
+        if (len % 2 == 1) {
+            // add one memory slot to the word
+            ptr->word = realloc(ptr->word, (len + 2) * sizeof(char));
+
+            // add the exclamation mark
+            ptr->word[len] = '!';
+
+            // close the string
+            ptr->word[len + 1] = '\0';
+        }
+        
+        // move to the next node
+        ptr = ptr->next;
+    }
+
+}
+
 void displayInstructions() {
     printf("\nWelcome to my linked list");
     printf("\nInstructions:\n> - move right\n< - move left");
     printf("\ne - insert from end\ns - insert from start");
     printf("\nf - display from start\nb - display from end");
     printf("\nl - insert to left\nr - insert to right");
-    printf("\nd - delete current\nt - do the lab task");
+    printf("\nd - delete current\n4 - do the lab task 4\n9 - do the lab task 9");
     printf("\nh - show this message again\nx - exit\n");
 }
 
@@ -354,8 +394,16 @@ void getInstruction(){
         case 'd':
             removeCurrentNode();
             break;
-        case 't':
-            labTask();
+        case '9':
+            printf("\nGive the letter for the task:\n");
+            while(choice = getc(stdin), choice!='\n') {
+                ;
+            }
+            str = inputCharString();
+            labTask9(str[0]);
+            break;
+        case '4':
+            labTask4();
             break;
         case 'h':
             displayInstructions();
