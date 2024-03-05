@@ -104,7 +104,6 @@ void insertFromEnd(char* word) {
     current = last;
 }
 
-
 void insertFromStart(char* word) {
     // create the node to insert
     struct node *link = (struct node*) malloc(sizeof(struct node));
@@ -176,6 +175,43 @@ void removeCurrentNode() {
     }
 }
 
+void insertLeft(char* word) {
+    if (current == NULL) {
+        printf("\nCurrent node is NULL\n");
+        return;
+    }
+
+    if (current == head) {
+        insertFromStart(word);
+        return;
+    }
+
+    struct node *link = (struct node*) malloc(sizeof(struct node));
+    link->word = word;
+
+    current->prev->next = link;
+    current->prev = link;
+
+}
+
+void insertRight(char* word) {
+    if (current == NULL) {
+        printf("\nCurrent node is NULL\n");
+        return;
+    }
+
+    if (current == last) {
+        insertFromEnd(word);
+        return;
+    }
+
+    struct node *link = (struct node*) malloc(sizeof(struct node));
+    link->word = word;
+
+    current->next->prev = link;
+    current->next = link;
+}
+
 char *inputCharString() {
     // user input
     char *str, c;
@@ -193,12 +229,13 @@ char *inputCharString() {
 }
 
 void labTask() {
-    struct node *ptr;
+    
     if (headEmpty() && tailEmpty()) {
         printf("\nThe list is empty\n");
         return;
     }
     
+    struct node *ptr;
     bool temp;
     int len;
 
@@ -251,29 +288,6 @@ void labTask() {
     }
 }
 
-int main() {
-
-    char *str;
-
-    str = inputCharString();
-    insertFromStart(str);
-    
-    str = inputCharString();
-    insertFromStart(str);
-
-    str = inputCharString();
-    insertFromStart(str);
-
-    labTask();
-
-    displayList(1);
-
-    //system("clear");
-
-    return 0;
-}
-
-/*
 
 void displayInstructions() {
     printf("\nWelcome to my linked list");
@@ -282,35 +296,69 @@ void displayInstructions() {
     printf("\nf - display from start\nb - display from end");
     printf("\nl - insert to left\nr - insert to right");
     printf("\nd - delete current\nt - do the lab task\n");
+    printf("\nh - show this message again\nx - exit\n");
 }
 
 void getInstruction(){
-    int c;
-    scanf("%d", c);
 
-    if (c == 1) {
-        moveNode(1);
-    } else if (c == 2){
-        moveNode(0);
-    } else if (c == 3){            
-        insertFromEnd(inputCharString());
-    } else if (c == 4){
-        
-    } else if (c == 5){
-        displayList(0);
-    } else if (c == 6){
-        displayList(1);
-    } else if (c == 7){
-            
-    } else if (c == 8){
-            
-    } else if (c == 9){
-            
-    } else if (c == 10){
-            
+    char choice;
+
+    // User input
+    printf("\nEnter your choice: ");
+    scanf(" %c", &choice);
+
+    // Process user choice
+    switch(choice) {
+        case '>':
+            printf("Moving right...\n");
+            break;
+        case '<':
+            printf("Moving left...\n");
+            break;
+        case 'e':
+            printf("Inserting from end...\n");
+            break;
+        case 's':
+            printf("Inserting from start...\n");
+            break;
+        case 'f':
+            printf("Displaying from start...\n");
+            break;
+        case 'b':
+            printf("Displaying from end...\n");
+            break;
+        case 'l':
+            printf("Inserting to left...\n");
+            break;
+        case 'r':
+            printf("Inserting to right...\n");
+            break;
+        case 'd':
+            printf("Deleting current...\n");
+            break;
+        case 't':
+            printf("Performing the lab task...\n");
+            break;
+        case 'h':
+            displayInstructions();
+            break;
+        case 'x':
+            exit(0);
+            break;
+        default:
+            printf("Invalid choice.\n");
+            break;
     }
-
-    return getInstruction();
 }
 
-*/
+
+int main() {
+
+    displayInstructions();
+
+    while (1) {
+        getInstruction();
+    }
+
+    return 0;
+}
