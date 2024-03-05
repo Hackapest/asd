@@ -189,9 +189,10 @@ void insertLeft(char* word) {
     struct node *link = (struct node*) malloc(sizeof(struct node));
     link->word = word;
 
+    link->next = current;
+    link->prev = current->prev;
     current->prev->next = link;
     current->prev = link;
-
 }
 
 void insertRight(char* word) {
@@ -208,6 +209,8 @@ void insertRight(char* word) {
     struct node *link = (struct node*) malloc(sizeof(struct node));
     link->word = word;
 
+    link->prev = current;
+    link->next = current->next;
     current->next->prev = link;
     current->next = link;
 }
@@ -288,14 +291,13 @@ void labTask() {
     }
 }
 
-
 void displayInstructions() {
     printf("\nWelcome to my linked list");
     printf("\nInstructions:\n> - move right\n< - move left");
     printf("\ne - insert from end\ns - insert from start");
     printf("\nf - display from start\nb - display from end");
     printf("\nl - insert to left\nr - insert to right");
-    printf("\nd - delete current\nt - do the lab task\n");
+    printf("\nd - delete current\nt - do the lab task");
     printf("\nh - show this message again\nx - exit\n");
 }
 
@@ -304,40 +306,56 @@ void getInstruction(){
     char choice;
 
     // User input
-    printf("\nEnter your choice: ");
-    scanf(" %c", &choice);
+    scanf("%c", &choice);
 
+    char* str;
     // Process user choice
     switch(choice) {
         case '>':
-            printf("Moving right...\n");
+            moveNode(1);
             break;
         case '<':
-            printf("Moving left...\n");
+            moveNode(0);
             break;
         case 'e':
-            printf("Inserting from end...\n");
+            while(choice = getc(stdin), choice!='\n') {
+                ;
+            }
+            str = inputCharString();
+            insertFromEnd(str);
             break;
         case 's':
-            printf("Inserting from start...\n");
+            while(choice = getc(stdin), choice!='\n') {
+                ;
+            }
+            str = inputCharString();
+            insertFromStart(str);
             break;
         case 'f':
-            printf("Displaying from start...\n");
+            displayList(0);
             break;
         case 'b':
-            printf("Displaying from end...\n");
+            displayList(1);
             break;
         case 'l':
-            printf("Inserting to left...\n");
+            while(choice = getc(stdin), choice!='\n') {
+                ;
+            }
+            str = inputCharString();
+            insertLeft(str);
             break;
         case 'r':
-            printf("Inserting to right...\n");
+            while(choice = getc(stdin), choice!='\n') {
+                ;
+            }
+            str = inputCharString();
+            insertRight(str);
             break;
         case 'd':
-            printf("Deleting current...\n");
+            removeCurrentNode();
             break;
         case 't':
-            printf("Performing the lab task...\n");
+            labTask();
             break;
         case 'h':
             displayInstructions();
@@ -346,7 +364,6 @@ void getInstruction(){
             exit(0);
             break;
         default:
-            printf("Invalid choice.\n");
             break;
     }
 }
