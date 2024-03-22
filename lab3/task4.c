@@ -328,7 +328,26 @@ void labTask9 (char letter){
         // move to the next node
         ptr = ptr->next;
     }
+}
 
+void personalTask() {
+    if (headEmpty() && tailEmpty()) {
+        printf("\nThe list is empty\n");
+        return;
+    }
+
+    int c = 0;
+    struct node *ptr = head;
+
+    while (c < 2) {
+        if (ptr->next == NULL) {
+            printf("The list is smallet than 3");
+            return;
+        }
+        ptr = ptr->next;
+        c++;   
+    }
+    ptr->word = last->word;
 }
 
 void displayInstructions() {
@@ -338,7 +357,7 @@ void displayInstructions() {
     printf("\nf - display from start\nb - display from end");
     printf("\nl - insert to left\nr - insert to right");
     printf("\nd - delete current\n4 - do the lab task 4\n9 - do the lab task 9");
-    printf("\nh - show this message again\nx - exit\n");
+    printf("\np - personal\nh - show this message again\nx - exit\n");
 }
 
 void getInstruction(){
@@ -404,6 +423,9 @@ void getInstruction(){
             break;
         case '4':
             labTask4();
+            break;
+        case 'p':
+            personalTask();
             break;
         case 'h':
             displayInstructions();

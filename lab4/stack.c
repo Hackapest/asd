@@ -66,13 +66,88 @@ void displayList(){
     }
 }
 
+bool is_operator(char c) {
+    return (c == '+' || c == '-' || c == '*' || c == '/');
+}
+
+bool is_digit(char c) {
+    return (c >= '0' && c <= '9');
+}
+
+int perform_operation() {
+    char operator = popStack()->symbol;
+    int operand2 = popStack()->symbol;
+    int operand1 = popStack()->symbol;
+
+    operand1 = operand1 - 48;
+    operand2 = operand2 - 48;
+
+    printf("%c", operand1);
+
+    int result;
+
+    switch(operator) {
+        case '+':
+            result = operand1 + operand2;
+            break;
+        case '-':
+            result = operand1 - operand2;
+            break;
+        case '*':
+            result = operand1 * operand2;
+            break;
+        case '/':
+            if (operand2 != 0) {
+                result = operand1 / operand2;
+            } else {
+                printf("Error! Division by zero.");
+            }
+            break;
+        default:
+            printf("Error! Invalid operator.");
+    }  
+}
+
+void mainLoop() {
+    char c;
+
+    printf("Enter characters:\n");
+
+    int i = 1;
+
+    while(c = getc(stdin), c!='q') {
+        printf("\n");
+        if (i % 3 != 0) {
+            if (!(is_digit(c))) {
+                printf("Incorrect input\n");
+                continue;
+            }
+            appendStack(c); 
+            i++; 
+        }
+        else if (i % 3 == 0) {
+            if (!(is_operator(c))) {
+                printf("Incorrect input\n");
+                continue;
+            }
+            appendStack(c);
+            perform_operation();
+            i++;
+        }
+        
+        
+    }
+}
+
+
+
 int main() {
-    appendStack('a');
-    appendStack('a');
-    appendStack('a');
-    appendStack('a');
+    
+    mainLoop();
 
     displayList();
+
+
 
     //struct node *ptr = NULL;
 

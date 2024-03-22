@@ -41,6 +41,9 @@ class DoublyLinkedList:
             if len(self.array[i]) % 2 == 1:
                 self.array[i] += ("!")
 
+    def personalised_task(self):
+        if 2 < len(self.array):
+            self.array[2] = self.array[-1]
 
 def generate_random_string():
     length = random.randint(4, 10)
@@ -51,8 +54,6 @@ def generate_random_string():
 def main():
     my_list = DoublyLinkedList()
 
-    my_list.insert_at_start(generate_random_string())
-    my_list.insert_at_start(generate_random_string())
     my_list.insert_at_start(generate_random_string())
     my_list.insert_at_start(generate_random_string())
     my_list.insert_at_start(generate_random_string())
@@ -75,6 +76,10 @@ def main():
     my_list.print_arr()
     print(50*"_")
 
+    my_list.personalised_task()
+
+    my_list.print_arr()
+    print(50*"_")
 
 
 
