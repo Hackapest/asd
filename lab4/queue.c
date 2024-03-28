@@ -5,8 +5,8 @@
 
 
 struct node {
-    char symbol;
-    struct node* prev;
+    int value;
+    struct node* next;
 };
 
 typedef struct node Node;
@@ -23,9 +23,24 @@ bool isEmpty() {
     }
 }
 
-void appendStack(char data) {
+bool oneElement() {
+    if (head == tail) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+void clearQueue() {
+    head = NULL;
+    tail = NULL;
+    return;
+}
+
+void appendQueue(int myint) {
     struct node *link = (struct node*) malloc(sizeof(struct node));
-    link->symbol = data;
+    link->value = myint;
 
     if (isEmpty()) {
         head = link;
@@ -33,20 +48,60 @@ void appendStack(char data) {
         return;
     }
 
-    link->prev = tail;
+    tail->next = link;
     tail = link;
     
     return;
 }
 
-Node *popStack() {
+Node *popQueue() {
     if (isEmpty()) {
         printf("\nThe stack is empty");
         return NULL;
     }
     
     struct node *ptr = head;
-    head = head->prev;
-    
+
+    if (oneElement()) {
+        clearQueue();
+    }
+    else {
+        // when more than one element
+        head = head->next;
+    }
     return ptr;
+}
+
+void printQueue() {
+    if (isEmpty()) {
+        printf("The queue is empty.\n");
+        return;
+    }
+
+    Node* temp = head;
+    printf("Queue: ");
+    while (temp != NULL) {
+        printf("%d ", temp->value);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int peekQueue() {
+    if (isEmpty()) {
+        printf("The queue is empty.\n");
+        return NULL; // Return a sentinel value to indicate an empty queue
+    }
+    return head->value;
+}
+
+int main() {
+
+    appendQueue(10);
+    appendQueue(20);
+    appendQueue(30);
+
+    printQueue(); // Output: Queue: 10 20 30
+
+    return 0;
 }

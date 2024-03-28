@@ -105,7 +105,7 @@ int perform_operation() {
             break;
         default:
             printf("Error! Invalid operator.");
-    }  
+    }
 }
 
 void mainLoop() {
