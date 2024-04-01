@@ -89,8 +89,7 @@ void printQueue() {
 
 int peekQueue() {
     if (isEmpty()) {
-        printf("The queue is empty.\n");
-        return NULL; // Return a sentinel value to indicate an empty queue
+        return -1; // Return a sentinel value to indicate an empty queue
     }
     return head->value;
 }
@@ -100,6 +99,11 @@ int main() {
     appendQueue(10);
     appendQueue(20);
     appendQueue(30);
+
+    printQueue();
+
+    popQueue();
+    popQueue();
 
     printQueue(); // Output: Queue: 10 20 30
 
