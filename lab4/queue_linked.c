@@ -33,6 +33,8 @@ bool oneElement() {
 }
 
 void clearQueue() {
+    free(head);
+    free(tail);
     head = NULL;
     tail = NULL;
     return;
@@ -54,10 +56,10 @@ void appendQueue(int myint) {
     return;
 }
 
-Node *popQueue() {
+int popQueue() {
     if (isEmpty()) {
         printf("\nThe stack is empty");
-        return NULL;
+        return -1;
     }
     
     struct node *ptr = head;
@@ -67,9 +69,10 @@ Node *popQueue() {
     }
     else {
         // when more than one element
+        free(head);
         head = head->next;
     }
-    return ptr;
+    return ptr->value;
 }
 
 void printQueue() {

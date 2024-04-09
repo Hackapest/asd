@@ -1,82 +1,83 @@
-class Queue:
-    def __init__(self):
-        self.items = []
+class CircularQueue():
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.array = [None] * self.capacity  # Create an array of size 'capacity'
+        self.size = 0
+        self.front = 0
+        self.rear = -1
+    
+    def is_empty(self):
+        return self.size == 0
 
-    def enqueue(self, item):
-        self.items.append(item)
+    def is_full(self):
+        return self.size == self.capacity
+    
+    def enqueue(self, value):
+        if self.is_full():
+            print("Queue is full.")
+            return
+        
+        self.rear = (self.rear + 1) % self.capacity
+        self.array[self.rear] = value
+        self.size += 1
 
     def dequeue(self):
-        if not self.is_empty():
-            return self.items.pop(0)
-        else:
+        if self.is_empty():
+            print("Queue is empty.")
             return None
+        
+        value = self.array[self.front]
+        self.array[self.front] = None
+        self.front = (self.front + 1) % self.capacity
+        self.size -= 1
+        return value
 
     def peek(self):
-        if not self.is_empty():
-            return self.items[0]
-        else:
+        if self.is_empty():
+            print("Queue is empty.")
             return None
-
-    def is_empty(self):
-        return len(self.items) == 0
-
-    def size(self):
-        return len(self.items)
+        
+        return self.array[self.front]
     
-def get_number():
-    n = input("Input a number: ")
-    for char in n:
-        if not char.isdigit():
-            print("Incorrect input")
-            return None
-    return int(n)
+    def display(self):
+        if self.is_empty():
+            print("Queue is empty.")
+            return
+        
+        result = []
+        for i in range(self.size):
+            result.append(self.array[(self.front + i) % self.capacity])
+        print(result)
 
-def get_operator():
-    n = input("Input an operator: ")
-    if len(n) != 1:
-        print("Incorrect input")
-        return None
-    elif n in ['+', '-', '*', '/']:
-        return n
-    else:
-        print("Incorrect input")
-        return None
+def test():
+    queue = CircularQueue(5)
 
-def perform_operation(operator, operand1, operand2):
-    match operator:
-        case '+':
-            return operand1 + operand2
-        case '-':
-            return operand1 - operand2
-        case '*':
-            return operand1 * operand2
-        case '/':
-            if operand2 != 0:
-                return operand1 / operand2
-            else:
-                print("Division by zero")
-                return None
-        case _:
-            print("Incorrect input")
-            return None
+    queue.enqueue(1)
+    queue.enqueue(2)
+    queue.enqueue(3)
+    queue.enqueue(4)
+    queue.enqueue(5)
+    queue.enqueue(6)
 
-def main():
-    queue = Queue()
-    while True:
-        if queue.size() < 2:
-            n = get_number()
-            if n == None:
-                continue
-            queue.enqueue(n)
-        elif queue.size() == 2:
-            operator = get_operator()
-            if operator == None:
-                continue
-            result = perform_operation(operator, queue.dequeue(), queue.dequeue())
-            if result == None:
-                continue
-            queue.enqueue(result)
-        print(queue.items)
+    queue.display()
 
+    n = queue.dequeue()
+    print(n)
 
-main()   
+    queue.display()
+
+    n = queue.dequeue()
+    print(n)
+
+    queue.display()
+
+    queue.enqueue(5)
+    queue.enqueue(5)
+
+    n = queue.dequeue()
+    print(n)
+
+    queue.display()
+
+if __name__ == "__main__":
+    test()
